@@ -1,0 +1,4 @@
+all:
+  nahoWikiPlugin:
+    default_page: Index
+    data_dir: %sf_data_dir%/nahoWikiPlugin

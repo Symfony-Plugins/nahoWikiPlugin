@@ -1,0 +1,11 @@
+.wiki-diff ins {
+  background: darkgreen;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0px 2px;
+}
+
+.wiki-diff del {
+  background: darkred;
+  padding: 0px 2px;
+}

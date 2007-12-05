@@ -1,0 +1,1 @@
+<?php include_partial('page_history', array('page' => $page, 'compare' => true, 'revision1' => $revision1, 'revision2' => $revision2, 'diff' => $diff)) ?>

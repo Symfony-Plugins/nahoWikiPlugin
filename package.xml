@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" 
+xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd 
+http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>nahoWikiPlugin</name>
+ <channel>pear.symfony-project.com</channel>
+ <summary>Simple Wiki system plugin.</summary>
+ <description>A simple Wiki system for Symfony applications.</description>
+ <lead>
+  <name>Nicolas Chambrier</name>
+  <user>naholyr</user>
+  <email>naholyr@yahoo.fr</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-11-19</date>
+ <version>
+   <release>0.0.1</release>
+   <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.symfony-project.com/license">MIT license</license>
+ <notes>-</notes>
+ <contents>
+
+  <dir name="/">
+    <file role="data" name="CHANGELOG" />
+    <file role="data" name="LICENSE" />
+    <file role="data" name="README" />
+    <dir name="config">
+      <file role="data" name="config.php" />
+      <file role="data" name="app.yml" />
+      <file role="data" name="schema.yml" />
+    </dir>
+    <dir name="modules">
+      <dir name="nahoWiki">
+        <dir name="actions">
+          <file role="data" name="components.class.php" />
+          <file role="data" name="actions.class.php" />
+        </dir>
+        <dir name="config">
+          <file role="data" name="cache.yml" />
+          <file role="data" name="security.yml" />
+          <file role="data" name="view.yml" />
+        </dir>
+        <dir name="lib">
+          <file role="data" name="BasenahoWikiComponents.class.php" />
+          <file role="data" name="BasenahoWikiActions.class.php" />
+        </dir>
+        <dir name="validate">
+          <file role="data" name="edit.yml" />
+        </dir>
+        <dir name="templates">
+          <file role="data" name="viewSuccess.php" />
+          <file role="data" name="_page.php" />
+          <file role="data" name="_page_tools.php" />
+          <file role="data" name="_page_edit.php" />
+          <file role="data" name="editSuccess.php" />
+          <file role="data" name="diffSuccess.php" />
+          <file role="data" name="historySuccess.php" />
+          <file role="data" name="_page_history.php" />
+          <file role="data" name="_diff.php" />
+        </dir>
+      </dir>
+    </dir>
+    <dir name="lib">
+      <dir name="PEAR">
+        <file role="data" name="Text_Diff3.php" />
+        <file role="data" name="Text_Diff.php" />
+        <file role="data" name="Text_Diff_Mapped.php" />
+        <file role="data" name="Text_Diff_Renderer.php" />
+        <file role="data" name="Text_Diff_Renderer_inline.php" />
+        <file role="data" name="Text_Diff_Renderer_unified.php" />
+        <file role="data" name="Text_Diff_Renderer_context.php" />
+        <file role="data" name="Text_Diff_Engine_string.php" />
+        <file role="data" name="Text_Diff_Engine_xdiff.php" />
+        <file role="data" name="Text_Diff_Engine_shell.php" />
+        <file role="data" name="Text_Diff_Engine_native.php" />
+        <file role="data" name="Text_Diff_ThreeWay.php" />
+        <file role="data" name="README.txt" />
+      </dir>
+      <dir name="model">
+        <dir name="plugin">
+          <file role="data" name="PluginnahoWikiContent.php" />
+          <file role="data" name="PluginnahoWikiContentPeer.php" />
+          <file role="data" name="PluginnahoWikiPage.php" />
+          <file role="data" name="PluginnahoWikiPagePeer.php" />
+          <file role="data" name="PluginnahoWikiRevision.php" />
+          <file role="data" name="PluginnahoWikiRevisionPeer.php" />
+        </dir>
+        <file role="data" name="nahoWikiContent.php" />
+        <file role="data" name="nahoWikiContentPeer.php" />
+        <file role="data" name="nahoWikiPage.php" />
+        <file role="data" name="nahoWikiPagePeer.php" />
+        <file role="data" name="nahoWikiRevision.php" />
+        <file role="data" name="nahoWikiRevisionPeer.php" />
+      </dir>
+      <dir name="helper" />
+    </dir>
+    <dir name="web">
+      <dir name="css">
+        <file role="data" name="default.css" />
+      </dir>
+    </dir>
+  </dir>
+ </contents>
+
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.1</min>
+   </pearinstaller>
+   <package>
+    <name>symfony</name>
+    <channel>pear.symfony-project.com</channel>
+    <min>1.0.0</min>
+    <max>1.1.0</max>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>sfMarkdownPlugin</name>
+    <channel>pear.symfony-project.com</channel>
+   </package>
+   <package>
+    <name>sfGuardPlugin</name>
+    <channel>pear.symfony-project.com</channel>
+   </package>
+  </optional>
+ </dependencies>
+
+ <phprelease>
+ </phprelease>
+
+ <changelog>
+ </changelog>
+</package>
