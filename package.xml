@@ -122,12 +122,12 @@ http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.0.0</min>
     <max>1.1.0</max>
    </package>
-  </required>
-  <optional>
    <package>
     <name>sfMarkdownPlugin</name>
     <channel>pear.symfony-project.com</channel>
    </package>
+  </required>
+  <optional>
    <package>
     <name>sfGuardPlugin</name>
     <channel>pear.symfony-project.com</channel>
