@@ -3,8 +3,7 @@
 <?php include_partial('page_tools', array('uriParams' => 'page=' . urlencode($page->getName()))) ?>
 
 <?php if (@$compare): ?>
-  <?php echo form_tag('nahoWiki/diff', 'name=diff_form id=diff_form class=wiki-form') ?>
-  <?php echo input_hidden_tag('page', $page->getName()) ?>
+  <?php echo form_tag('nahoWiki/diff?page='.$page->getName(), 'name=diff_form id=diff_form class=wiki-form') ?>
 <?php endif ?>
 
 <table class="wiki-history">
