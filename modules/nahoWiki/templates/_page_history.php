@@ -1,9 +1,10 @@
-<?php use_helper('Date') ?>
+<?php use_helper('Date', 'I18N') ?>
 
-<?php include_partial('page_tools', array('uriParams' => 'page=' . urlencode($page->getName()))) ?>
+<h1 class="wiki-title"><?php echo __('History of changes') ?></h1>
 
 <?php if (@$compare): ?>
-  <?php echo form_tag('nahoWiki/diff?page='.$page->getName(), 'name=diff_form id=diff_form class=wiki-form') ?>
+  <?php echo form_tag('nahoWiki/diff', 'name=diff_form id=diff_form class=wiki-form') ?>
+  <?php echo input_hidden_tag('page', $page->getName()) ?>
 <?php endif ?>
 
 <table class="wiki-history">

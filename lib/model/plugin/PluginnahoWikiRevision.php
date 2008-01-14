@@ -88,7 +88,12 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
   
   public function getXHTMLContent()
   {
-    return sfMarkdown::doConvert($this->getContent());
+    $content = $this->getContent();
+    $content = nahoWikiContentPeer::preConvert($this->getPage(), $content);
+    $content = nahoWikiContentPeer::doConvert($content);
+    $content = nahoWikiContentPeer::postConvert($this->getPage(), $content);
+    
+    return $content;
   }
   
   public function setContent($content)

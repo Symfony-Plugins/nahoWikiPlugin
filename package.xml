@@ -13,10 +13,10 @@ http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
   <email>naholyr@yahoo.fr</email>
   <active>yes</active>
  </lead>
- <date>2007-11-19</date>
+ <date>2008-01-15</date>
  <version>
-   <release>0.0.1</release>
-   <api>0.0.1</api>
+   <release>0.1</release>
+   <api>0.1</api>
  </version>
  <stability>
   <release>beta</release>
@@ -25,87 +25,7 @@ http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <license uri="http://www.symfony-project.com/license">MIT license</license>
  <notes>-</notes>
  <contents>
-
-  <dir name="/">
-    <file role="data" name="CHANGELOG" />
-    <file role="data" name="LICENSE" />
-    <file role="data" name="README" />
-    <dir name="config">
-      <file role="data" name="config.php" />
-      <file role="data" name="app.yml" />
-      <file role="data" name="schema.yml" />
-    </dir>
-    <dir name="modules">
-      <dir name="nahoWiki">
-        <dir name="actions">
-          <file role="data" name="components.class.php" />
-          <file role="data" name="actions.class.php" />
-        </dir>
-        <dir name="config">
-          <file role="data" name="cache.yml" />
-          <file role="data" name="security.yml" />
-          <file role="data" name="view.yml" />
-        </dir>
-        <dir name="lib">
-          <file role="data" name="BasenahoWikiComponents.class.php" />
-          <file role="data" name="BasenahoWikiActions.class.php" />
-        </dir>
-        <dir name="validate">
-          <file role="data" name="edit.yml" />
-        </dir>
-        <dir name="templates">
-          <file role="data" name="viewSuccess.php" />
-          <file role="data" name="_page.php" />
-          <file role="data" name="_page_tools.php" />
-          <file role="data" name="_page_edit.php" />
-          <file role="data" name="editSuccess.php" />
-          <file role="data" name="diffSuccess.php" />
-          <file role="data" name="historySuccess.php" />
-          <file role="data" name="_page_history.php" />
-          <file role="data" name="_diff.php" />
-        </dir>
-      </dir>
-    </dir>
-    <dir name="lib">
-      <dir name="PEAR">
-        <file role="data" name="Text_Diff3.php" />
-        <file role="data" name="Text_Diff.php" />
-        <file role="data" name="Text_Diff_Mapped.php" />
-        <file role="data" name="Text_Diff_Renderer.php" />
-        <file role="data" name="Text_Diff_Renderer_inline.php" />
-        <file role="data" name="Text_Diff_Renderer_unified.php" />
-        <file role="data" name="Text_Diff_Renderer_context.php" />
-        <file role="data" name="Text_Diff_Engine_string.php" />
-        <file role="data" name="Text_Diff_Engine_xdiff.php" />
-        <file role="data" name="Text_Diff_Engine_shell.php" />
-        <file role="data" name="Text_Diff_Engine_native.php" />
-        <file role="data" name="Text_Diff_ThreeWay.php" />
-        <file role="data" name="README.txt" />
-      </dir>
-      <dir name="model">
-        <dir name="plugin">
-          <file role="data" name="PluginnahoWikiContent.php" />
-          <file role="data" name="PluginnahoWikiContentPeer.php" />
-          <file role="data" name="PluginnahoWikiPage.php" />
-          <file role="data" name="PluginnahoWikiPagePeer.php" />
-          <file role="data" name="PluginnahoWikiRevision.php" />
-          <file role="data" name="PluginnahoWikiRevisionPeer.php" />
-        </dir>
-        <file role="data" name="nahoWikiContent.php" />
-        <file role="data" name="nahoWikiContentPeer.php" />
-        <file role="data" name="nahoWikiPage.php" />
-        <file role="data" name="nahoWikiPagePeer.php" />
-        <file role="data" name="nahoWikiRevision.php" />
-        <file role="data" name="nahoWikiRevisionPeer.php" />
-      </dir>
-      <dir name="helper" />
-    </dir>
-    <dir name="web">
-      <dir name="css">
-        <file role="data" name="default.css" />
-      </dir>
-    </dir>
-  </dir>
+  <dir name="/"><file role="data" name="LICENSE"/><file role="data" name="README"/><file role="data" name="CHANGELOG"/><dir name="web"><dir name="css"><file role="data" name="default.css"/></dir><dir name="images"><dir name="interwiki"><file role="data" name="amazon.gif"/><file role="data" name="google.gif"/><file role="data" name="amazon.de.gif"/><file role="data" name="dokubug.gif"/><file role="data" name="wpmeta.gif"/><file role="data" name="wp.gif"/><file role="data" name="sb.gif"/><file role="data" name="doku.gif"/><file role="data" name="amazon.uk.gif"/><file role="data" name="php.gif"/><file role="data" name="wiki.gif"/><file role="data" name="wpde.gif"/><file role="data" name="coral.gif"/><file role="data" name="meatball.gif"/></dir><file role="data" name="dir_open.gif"/><file role="data" name="interwiki.png"/><file role="data" name="dir_closed.gif"/><file role="data" name="article.gif"/><file role="data" name="breadcrumbs.gif"/></dir></dir><dir name="modules"><dir name="nahoWiki"><dir name="templates"><file role="data" name="_page_actions.php"/><file role="data" name="_toc.php"/><file role="data" name="_page_edit.php"/><file role="data" name="_page.php"/><file role="data" name="editSuccess.php"/><file role="data" name="_index.php"/><file role="data" name="_content.php"/><file role="data" name="_diff.php"/><file role="data" name="_page_tools.php"/><file role="data" name="browseSuccess.php"/><file role="data" name="historySuccess.php"/><file role="data" name="userSuccess.php"/><file role="data" name="_page_history.php"/><file role="data" name="diffSuccess.php"/><file role="data" name="_breadcrumbs.php"/><file role="data" name="viewSuccess.php"/></dir><dir name="lib"><file role="data" name="BasenahoWikiComponents.class.php"/><file role="data" name="BasenahoWikiActions.class.php"/></dir><dir name="config"><file role="data" name="cache.yml"/><file role="data" name="security.yml"/><file role="data" name="view.yml"/></dir><dir name="actions"><file role="data" name="actions.class.php"/><file role="data" name="components.class.php"/></dir><dir name="validate"><file role="data" name="edit.yml"/></dir></dir></dir><dir name="lib"><dir name="helper"><file role="data" name="nahoWikiHelper.php"/></dir><dir name="model"><dir name="plugin"><file role="data" name="PluginnahoWikiRevisionPeer.php"/><file role="data" name="PluginnahoWikiRevision.php"/><file role="data" name="PluginnahoWikiContentPeer.php"/><file role="data" name="PluginnahoWikiPage.php"/><file role="data" name="PluginnahoWikiPagePeer.php"/><file role="data" name="PluginnahoWikiContent.php"/></dir><file role="data" name="nahoWikiContent.php"/><file role="data" name="nahoWikiContentPeer.php"/><file role="data" name="nahoWikiPagePeer.php"/><file role="data" name="nahoWikiRevisionPeer.php"/><file role="data" name="nahoWikiPage.php"/><file role="data" name="nahoWikiRevision.php"/></dir><dir name="PEAR"><file role="data" name="Text_Diff_Engine_string.php"/><file role="data" name="Text_Diff_Renderer_context.php"/><file role="data" name="Text_Diff_Renderer_inline.php"/><file role="data" name="Text_Diff_Renderer_unified.php"/><file role="data" name="Text_Diff_Mapped.php"/><file role="data" name="Text_Diff_Engine_xdiff.php"/><file role="data" name="README.txt"/><file role="data" name="Text_Diff_Renderer.php"/><file role="data" name="Text_Diff.php"/><file role="data" name="Text_Diff_ThreeWay.php"/><file role="data" name="Text_Diff3.php"/><file role="data" name="Text_Diff_Engine_shell.php"/><file role="data" name="Text_Diff_Engine_native.php"/></dir><file role="data" name="nahoWikiConfigHandler.php"/></dir><dir name="config"><file role="data" name="schema.yml"/><file role="data" name="config.php"/><file role="data" name="app.yml"/><file role="data" name="config_handlers.yml"/><file role="data" name="interwiki.yml"/></dir></dir>
  </contents>
 
  <dependencies>
@@ -122,17 +42,7 @@ http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.0.0</min>
     <max>1.1.0</max>
    </package>
-   <package>
-    <name>sfMarkdownPlugin</name>
-    <channel>pear.symfony-project.com</channel>
-   </package>
   </required>
-  <optional>
-   <package>
-    <name>sfGuardPlugin</name>
-    <channel>pear.symfony-project.com</channel>
-   </package>
-  </optional>
  </dependencies>
 
  <phprelease>

@@ -19,32 +19,51 @@ class BasenahoWikiActions extends sfActions
   
   public function preExecute()
   {
+    $this->anonymousEditing = sfConfig::get('app_nahoWikiPlugin_allow_anonymous_edit', false);
+    $this->startPage = sfConfig::get('app_nahoWikiPlugin_start_page', 'index');
+    $this->credentialsEdit = sfConfig::get('app_nahoWikiPlugin_credentials_edit', array());
   }
   
   protected function setPage($page_name = null)
   {
+    // Get page from request if not given as parameter (default behaviour)
     if (is_null($page_name)) {
-      $page_name = ucfirst(sfInflector::camelize($this->getRequestParameter('page')));
+      $page_name = $this->getRequestParameter('page', $this->startPage);
+      
     }
-    $c = new Criteria;
-    $c->add(nahoWikiPagePeer::NAME, $page_name);
-    $this->page = nahoWikiPagePeer::doSelectOne($c);
+    
+    // Handle case insensitivity
+    $page_name = strtolower($page_name);
+    
+    // Support default page if not specified in namespace
+    if (substr($page_name, -1) == ':') {
+      $page_name .= $this->startPage;
+    }
+    
+    // Retrieve the page, or start a new one if cannot be found
+    $this->page = nahoWikiPagePeer::retrieveByName($page_name);
     if (!$this->page) {
       $this->initNewPage($page_name);
     }
     
+    // Retrieve the revision
     $revision = $this->getRequestParameter('revision', $this->page->getLatestRevision());
     $this->revision = $this->page->getRevision($revision);
     if (!$this->revision) {
       $this->initNewRevision();
     }
     
+    // Generate the URI parameters to keep trace of the requested page
     $this->uriParams = 'page=' . urlencode($this->page->getName());
     if ($this->revision->getRevision() != $this->page->getLatestRevision()) {
       $this->uriParams .= '&revision=' . urlencode($this->revision->getRevision());
     }
-  }
     
+    // Permissions management
+    $this->canView = $this->page->canView($this->getUser());
+    $this->canEdit = $this->page->canEdit($this->getUser());
+  }
+  
   protected function initNewRevision()
   {
     $this->revision = new nahoWikiRevision;
@@ -74,32 +93,46 @@ class BasenahoWikiActions extends sfActions
     }
   }
   
+  
+  protected function updateBreadcrumbs()
+  {
+    if (!$this->page->isNew()) {
+      $breadcrumbs = $this->getUser()->getAttribute('breadcrumbs', array(), 'nahoWiki');
+      if (!in_array($this->page->getName(), $breadcrumbs)) {
+        $breadcrumbs[] = $this->page->getName();
+      }
+      if (count($breadcrumbs) > sfConfig::get('app_nahoWikiPlugin_max_breadcrumbs', 5)) {
+        array_shift($breadcrumbs);
+      }
+      $this->getUser()->setAttribute('breadcrumbs', $breadcrumbs, 'nahoWiki');
+    }
+  }
+  
+  
   public function executeIndex()
   {
-    $default_page = sfConfig::get('app_nahoWikiPlugin_default_page', 'Index');
-    if (!$this->getRequestParameter('page')) {
-      $this->getRequest()->setParameter('page', $default_page);
-    }
-    
     $this->forward('nahoWiki', 'view');
   }
   
   public function executeView()
   {
     $this->setPage();
+    $this->forward403Unless($this->canView);
+    
+    $this->updateBreadcrumbs();
     
     return sfView::SUCCESS;
   }
   
   public function handleErrorEdit()
   {
-    $this->setPage();
-    
-    return sfView::SUCCESS;
+    return $this->executeEdit();
   }
   public function executeEdit()
   {
     $this->setPage();
+    // Do not reject here if not canEdit, cause it then fallbacks on "view source" feature
+    $this->forward403Unless($this->canView); 
     
     // Generate the username (this is done by the Revision model)
     $tmp_revision = new nahoWikiRevision;
@@ -108,16 +141,22 @@ class BasenahoWikiActions extends sfActions
     
     // Save changes
     if ($this->getRequest()->getMethod() == sfRequest::POST) {
+      // Here we must be able to edit
+      $this->forward403Unless($this->canEdit);
       if (!$this->page->isNew()) {
         $this->revision->archiveContent();
         $this->initNewRevision();
       }
       $this->revision->setContent($this->getRequestParameter('content'));
       $this->revision->setComment($this->getRequestParameter('comment'));
-      $this->revision->save();
+      if (!$this->getRequestParameter('request-preview')) {
+        $this->revision->save();
+      }
       $this->page->setLatestRevision($this->revision->getRevision());
-      $this->page->save();
-      $this->redirect('nahoWiki/view?page=' . $this->page->getName());
+      if (!$this->getRequestParameter('request-preview')) {
+        $this->page->save();
+        $this->redirect('nahoWiki/view?page=' . $this->page->getName());
+      }
     }
     
     return sfView::SUCCESS;
@@ -126,6 +165,7 @@ class BasenahoWikiActions extends sfActions
   public function executeHistory()
   {
     $this->setPage();
+    $this->forward403Unless($this->canView);
 
     return sfView::SUCCESS;
   }
@@ -133,6 +173,7 @@ class BasenahoWikiActions extends sfActions
   public function executeDiff()
   {
     $this->setPage(); // $this->revision is revision2
+    $this->forward403Unless($this->canView);
 
     $this->forward404If($this->page->isNew());
     $this->forward404If($this->revision->isNew());
@@ -178,6 +219,44 @@ class BasenahoWikiActions extends sfActions
   public function executeUser()
   {
     $this->setPage('User:' . $this->getRequestParameter('name'));
+    $this->forward403Unless($this->canView);
+    
+    return sfView::SUCCESS;
+  }
+  
+  protected function buildIndexTree(&$tree, $path, $fullpath, $expanded)
+  {
+    if (count($path) == 1) {
+      $tree[$path[0]] = $fullpath;
+    } else {
+      $category = array_shift($path) . ':';
+      if (!isset($tree[$category])) {
+        $tree[$category] = array();
+      }
+      if (count($expanded) && $category == $expanded[0] . ':') {
+        array_shift($expanded);
+        $this->buildIndexTree($tree[$category], $path, $fullpath, $expanded);
+      }
+    }
+  }
+  
+  public function executeBrowse()
+  {
+    $this->setPage();
+    
+    $path = $this->getRequestParameter('path');
+    $tree = array();
+    
+    $c = new Criteria;
+    $c->addAscendingOrderByColumn(nahoWikiPagePeer::NAME);
+    $pages = nahoWikiPagePeer::doSelect($c);
+    
+    foreach ($pages as $page) {
+      $this->buildIndexTree($tree, explode(':', $page->getName()), $page->getName(), explode(':', $path));
+    }
+    
+    $this->tree = $tree;
+    $this->uriParams = 'page=' . urlencode($this->getRequestParameter('page'));
     
     return sfView::SUCCESS;
   }

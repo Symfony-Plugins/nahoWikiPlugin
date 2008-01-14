@@ -1,4 +1,4 @@
-<?php use_helper('nahoWiki') ?>
+<?php use_helper('I18N', 'nahoWiki') ?>
 
 <p class="wiki-diff-intro"><?php echo __('View below changes from %revision1% to %revision2% :', array(
     '%revision1%' => link_to_wiki($page->getName(), $revision1->getRevision()),
