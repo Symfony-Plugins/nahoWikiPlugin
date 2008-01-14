@@ -151,6 +151,7 @@ class nahoWikiActions extends BasenahoWikiActions
   // Here I add my own features, or override existing ones
 
 }
+}}}
 
 To override a template file named `plugins/nahoWikiplugin/modules/nahoWiki/templates/theTemplate.php`, just copy it to `modules/nahoWiki/templates/theTemplate.php` in your app's folder, and then edit the copied file: it will be the one used by Symfony to render the pages.
 In most cases, you will want to override `_page_actions.php` or `_breadcrumbs.php`, or `_toc.php`. Templates have been smartly exploded, you should be able to customize the rendering with a few efforts.
@@ -295,7 +296,7 @@ nahoWiki provides basic support for Interwiki.
 
 The main syntax is `[[Key>PageName Title]]`, and it outputs a link to the page "PageName" of the wiki named "Key", preceded by a nice icon telling the user this is an Interwiki link.
 
-If the file named `web/nahoWikiPlugin/images/interwiki/key.gif` exists (or `.png` or `.jpg`) it will be used, else we use the generic `interwiki.png` [[Image(source:/plugins/nahoWikiPlugin/web/images/interwiki.png)]]
+If the file named `web/nahoWikiPlugin/images/interwiki/key.gif` exists (or `.png` or `.jpg`) it will be used, else we use the generic `interwiki.png` [[Image(source:plugins/nahoWikiPlugin/trunk/web/images/interwiki.png, image/x-trac-wiki)]]
 
 To add a new Interwiki, just create a file named `interwiki.yml` in your app's folder, and add the key you want :
 
