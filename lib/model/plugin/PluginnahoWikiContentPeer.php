@@ -146,7 +146,7 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
         $replace['title'] = nahoWikiPagePeer::getBasename($replace['name']);
       }
       // Link
-      $url = 'nahoWiki/view?page=' . urlencode($replace['name']);
+      $url = 'nahoWiki/view?page=' . $replace['name'];
       if (@$replace['anchor']) {
         $url .= '#' . $replace['anchor'];
       }

@@ -54,9 +54,9 @@ class BasenahoWikiActions extends sfActions
     }
     
     // Generate the URI parameters to keep trace of the requested page
-    $this->uriParams = 'page=' . urlencode($this->page->getName());
+    $this->uriParams = 'page=' . $this->page->getName();
     if ($this->revision->getRevision() != $this->page->getLatestRevision()) {
-      $this->uriParams .= '&revision=' . urlencode($this->revision->getRevision());
+      $this->uriParams .= '&revision=' . $this->revision->getRevision();
     }
     
     // Permissions management

@@ -8,7 +8,7 @@
       echo link_to($name, 'nahoWiki/browse?path=' . urlencode($fullpath) . '&' . $uriParams, 'class=' . $class);
       include_partial('index', array('tree' => $elements, 'base' => $fullpath, 'uriParams' => $uriParams));
     } else {
-      echo link_to($name, 'nahoWiki/view?page=' . urlencode($elements), 'class=wiki-link-page');
+      echo link_to_wiki($name, $elements, 'class=wiki-link-page');
     }
   ?>
   </li>

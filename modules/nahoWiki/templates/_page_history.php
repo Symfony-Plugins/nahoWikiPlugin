@@ -1,4 +1,4 @@
-<?php use_helper('Date', 'I18N') ?>
+<?php use_helper('Date', 'I18N', 'nahoWiki') ?>
 
 <h1 class="wiki-title"><?php echo __('History of changes') ?></h1>
 
@@ -29,9 +29,9 @@
         <td><?php echo radiobutton_tag('oldRevision', $revision->getRevision(), $rev1 == $revision->getRevision()) ?></td>
         <td><?php echo radiobutton_tag('revision', $revision->getRevision(), $rev2 == $revision->getRevision()) ?></td>
       <?php endif ?>
-      <td><?php echo link_to($page->getName() . ' rev. ' . $revision->getRevision(), 'nahoWiki/view?page=' . urlencode($page->getName()) . '&revision=' . urlencode($revision->getRevision())) ?></td>
+      <td><?php echo link_to_wiki(null, $page->getName(), array('revision' => $revision->getRevision())) ?></td>
       <td><?php echo format_datetime($revision->getCreatedAt('U')) ?></td>
-      <td><?php echo link_to($revision->getUserName(), 'nahoWiki/user?name=' . urlencode($revision->getUserName())) ?></td>
+      <td><?php echo link_to_wiki_user(null, $revision->getUserName()) ?></td>
       <td><em><?php echo $revision->getComment() ?></em></td>
     </tr>
   <?php endforeach ?>

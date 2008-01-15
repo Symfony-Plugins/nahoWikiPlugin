@@ -10,7 +10,7 @@
  */
 function link_to_diff($text, $page_name, $rev1, $rev2, $mode = 'inline')
 {
-  return link_to($text, 'nahoWiki/diff?page=' . urlencode($page_name) . '&oldRevision=' . $rev1 . '&revision=' . $rev2 . '&mode=' . urlencode($mode));
+  return link_to($text, 'nahoWiki/diff?page=' . $page_name . '&oldRevision=' . $rev1 . '&revision=' . $rev2 . '&mode=' . $mode);
 }
 
 /**
@@ -24,7 +24,7 @@ function link_to_diff($text, $page_name, $rev1, $rev2, $mode = 'inline')
  */
 function link_to_raw_diff($text, $page_name, $rev1, $rev2, $mode = 'unified')
 {
-  return link_to($text, 'nahoWiki/diff?page=' . urlencode($page_name) . '&oldRevision=' . $rev1 . '&revision=' . $rev2 . '&mode=' . urlencode($mode) . '&raw=1');
+  return link_to($text, 'nahoWiki/diff?page=' . $page_name . '&oldRevision=' . $rev1 . '&revision=' . $rev2 . '&mode=' . $mode . '&raw=1');
 }
 
 /**
@@ -32,12 +32,18 @@ function link_to_raw_diff($text, $page_name, $rev1, $rev2, $mode = 'unified')
  *
  * @param string $page_name
  * @param int $revision
+ * @param boolean $absolute
  *
  * @return string
  */
-function url_for_wiki($page_name, $revision = null)
+function url_for_wiki($page_name, $revision = null, $absolute = false)
 {
-  return url_for('nahoWiki/view?page=' . urlencode($page_name) . '&revision=' . $revision);
+  $url = 'nahoWiki/view?page=' . $page_name;
+  if (!is_null($revision)) {
+    $url .= '&revision=' . $revision;
+  }
+  
+  return url_for($url, $absolute);
 }
 
 /**
@@ -45,21 +51,24 @@ function url_for_wiki($page_name, $revision = null)
  *
  * @param string $text text of the link (if null, we create it from the pagename+revision)
  * @param string $page_name
- * @param array $options params added to the link
- * @param int $revision
+ * @param array $options params added to the link (you can add a 'revision' option to specifiy the revision of the page you want to link to)
  *
  * @return string
  */
-function link_to_wiki($text, $page_name, $options = array(), $revision = null)
+function link_to_wiki($text, $page_name, $options = array())
 {
+  $url = 'nahoWiki/view?page=' . $page_name
+  if (isset($options['revision'])) {
+    $url .= '&revision=' . $revision;
+  }
   if (is_null($text)) {
-    $text = htmlspecialchars($page_name);
-    if (!is_null($revision)) {
+    $text = htmlspecialchars(nahoWikiPagePeer::getBasename($page_name));
+    if (isset($options['revision'])) {
       $text .= ' rev. ' . $revision;
     }
   }
-
-  return link_to($text, 'nahoWiki/view?page=' . urlencode($page_name) . '&revision=' . $revision, $options);
+  
+  return link_to($text,  $url, $options);
 }
 
 /**
@@ -67,12 +76,13 @@ function link_to_wiki($text, $page_name, $options = array(), $revision = null)
  *
  * @param string $username
  * @param int $revision
+ * @param boolean $absolute
  *
  * @return string
  */
-function url_for_wiki_user($username, $revision = null)
+function url_for_wiki_user($username, $revision = null, $absolute = false)
 {
-  return url_for_wiki($text, 'user:' . $username);
+  return url_for_wiki('user:' . $username, $revision, $absolute);
 }
 
 /**
@@ -80,14 +90,14 @@ function url_for_wiki_user($username, $revision = null)
  *
  * @param string $text text of the link
  * @param string $username
- * @param array $options params added to the link
+ * @param array $options params added to the link (you can add a 'revision' option to specifiy the revision of the page you want to link to)
  * @param int $revision
  *
  * @return string
  */
-function link_to_wiki_user($text, $username, $options = array(), $revision = null)
+function link_to_wiki_user($text, $username, $options = array())
 {
-  return link_to_wiki($text, 'user:' . $username, $options, $revision);
+  return link_to_wiki($text, 'user:' . $username, $options);
 }
 
 /**
@@ -95,12 +105,13 @@ function link_to_wiki_user($text, $username, $options = array(), $revision = nul
  *
  * @param string $page_name
  * @param int $revision
+ * @param boolean $absolute
  *
  * @return string
  */
-function url_for_wiki_discuss($page_name, $revision = null)
+function url_for_wiki_discuss($page_name, $revision = null, $absolute = false)
 {
-  return url_for_wiki('discuss:' . $page_name, $revision);
+  return url_for_wiki('discuss:' . $page_name, $revision, $absolute);
 }
 
 /**
@@ -113,9 +124,9 @@ function url_for_wiki_discuss($page_name, $revision = null)
  *
  * @return string
  */
-function link_to_wiki_discuss($text, $page_name, $options = array(), $revision = null)
+function link_to_wiki_discuss($text, $page_name, $options = array())
 {
-  return link_to_wiki($text, 'discuss:' . $page_name, $options, $revision);
+  return link_to_wiki($text, 'discuss:' . $page_name, $options);
 }
 
 /**
