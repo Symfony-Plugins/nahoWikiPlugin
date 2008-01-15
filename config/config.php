@@ -16,20 +16,20 @@ if ($routes_register && $enabled_module)
     '/wiki',
     array('module' => 'nahoWiki', 'action' => 'index'));
   
-  $r->prependRoute('wiki_view',
-    '/wiki/view/:page',
-    array('module' => 'nahoWiki', 'action' => 'view'));
-  
   $r->prependRoute('wiki_view_revision',
     '/wiki/view/:page/:revision',
     array('module' => 'nahoWiki', 'action' => 'view'));
   
-  $r->prependRoute('wiki_edit',
-    '/wiki/edit/:page',
-    array('module' => 'nahoWiki', 'action' => 'edit'));
+  $r->prependRoute('wiki_view',
+    '/wiki/view/:page',
+    array('module' => 'nahoWiki', 'action' => 'view'));
   
   $r->prependRoute('wiki_edit_revision',
     '/wiki/edit/:page/:revision',
+    array('module' => 'nahoWiki', 'action' => 'edit'));
+  
+  $r->prependRoute('wiki_edit',
+    '/wiki/edit/:page',
     array('module' => 'nahoWiki', 'action' => 'edit'));
   
   $r->prependRoute('wiki_history',
@@ -37,11 +37,11 @@ if ($routes_register && $enabled_module)
     array('module' => 'nahoWiki', 'action' => 'history'));
   
   $r->prependRoute('wiki_diff',
-    '/wiki/diff',
+    '/wiki/diff/*',
     array('module' => 'nahoWiki', 'action' => 'diff'));
   
   $r->prependRoute('wiki_index',
-    '/wiki/index',
+    '/wiki/index/*',
     array('module' => 'nahoWiki', 'action' => 'browse'));
 
 }

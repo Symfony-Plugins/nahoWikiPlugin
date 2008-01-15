@@ -1,8 +1,8 @@
 <?php use_helper('I18N', 'nahoWiki') ?>
 
 <p class="wiki-diff-intro"><?php echo __('View below changes from %revision1% to %revision2% :', array(
-    '%revision1%' => link_to_wiki($page->getName(), $revision1->getRevision()),
-    '%revision2%' => link_to_wiki($page->getName(), $revision2->getRevision()),
+    '%revision1%' => link_to_wiki(null, $page->getName(), array('revision' => $revision1->getRevision())),
+    '%revision2%' => link_to_wiki(null, $page->getName(), array('revision' => $revision2->getRevision())),
   )) ?></p>
 
 <?php if (!trim($diff)): ?>

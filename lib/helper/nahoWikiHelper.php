@@ -57,14 +57,14 @@ function url_for_wiki($page_name, $revision = null, $absolute = false)
  */
 function link_to_wiki($text, $page_name, $options = array())
 {
-  $url = 'nahoWiki/view?page=' . $page_name
+  $url = 'nahoWiki/view?page=' . $page_name;
   if (isset($options['revision'])) {
-    $url .= '&revision=' . $revision;
+    $url .= '&revision=' . $options['revision'];
   }
   if (is_null($text)) {
     $text = htmlspecialchars(nahoWikiPagePeer::getBasename($page_name));
     if (isset($options['revision'])) {
-      $text .= ' rev. ' . $revision;
+      $text .= ' rev. ' . $options['revision'];
     }
   }
   
