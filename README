@@ -2,7 +2,8 @@
 
 == Overview ==
 
-This plugin allows you to embed a wiki within your symfony application with the following features:
+This plugin allows you to embed a wiki within your symfony application with 
+the following features:
   - Create/edit pages with full versionning
   - Basic permissions management
   - Basic security features
@@ -17,11 +18,17 @@ This plugin allows you to embed a wiki within your symfony application with the 
   - Fully extendable
   - A bunch of helpers to provide total integration in your application
 
-Most features have been inspired from [http://www.splitbrain.org/projects/dokuwiki DokuWiki] (e.g. namespaces and Interwiki work the same way).
+Most features have been inspired from 
+[http://www.splitbrain.org/projects/dokuwiki DokuWiki] (e.g. namespaces and 
+Interwiki work the same way).
 
-It is not aimed at replacing full-featured wiki packages, but offers a lightweight alternative for when you build a website that has to contain a simple wiki. It is very easy to configure and adapt, so it should fulfill most basic wiki requirements.
+It is not aimed at replacing full-featured wiki packages, but offers a 
+lightweight alternative for when you build a website that has to contain a 
+simple wiki. It is very easy to configure and adapt, so it should fulfill most 
+basic wiki requirements.
 
-Please note that this plugin is in active development. If you want to help and improve it, please contact Nicolas Chambrier.
+Please note that this plugin is in active development. If you want to help and 
+improve it, please contact Nicolas Chambrier (naholyr at yahoo dot fr).
 
 == Screenshots ==
 
@@ -32,39 +39,51 @@ Please note that this plugin is in active development. If you want to help and i
 == Requirements ==
 
 The prerequisites for using the `nahoWiki` plugin are:
- - As the plugin doesn't contain a user management module, the project where you install it must have a table managing authors, or users (whatever the name), and the related Propel class must have a `__toString()` method. Both these conditions are satisfied by the [http://trac.symfony-project.com/trac/wiki/sfGuardPlugin sfGuardPlugin], so installing this plugin is a good choice.
- - You need the [http://trac.symfony-project.com/trac/wiki/sfMarkdownPlugin sfMarkdownPlugin] which will provide the ability to convert from wiki syntax to XHTML contents.
+ - As the plugin doesn't contain a user management module, the project where 
+   you install it must have a table managing authors, or users (whatever the 
+   name), and the related Propel class must have a `__toString()` method. Both 
+   these conditions are satisfied by the 
+   [http://trac.symfony-project.com/trac/wiki/sfGuardPlugin sfGuardPlugin], so 
+   installing this plugin is a good choice.
+ - You need the [http://trac.symfony-project.com/trac/wiki/sfMarkdownPlugin 
+   sfMarkdownPlugin] which will provide the ability to convert from wiki syntax 
+   to XHTML contents.
 
 == Installation ==
 
 === PEAR Install ===
 
-To install the plugin for a symfony project, the usual process is to use the symfony command line:
+To install the plugin for a symfony project, the usual process is to use the 
+symfony command line:
 {{{
-$ php symfony plugin-install http://plugins.symfony-project.com/nahoWikiplugin
+$ php symfony plugin-install http://plugins.symfony-project.com/nahoWikiPlugin
 }}}
 
 === SVN Install ===
 
-If your project is not under subversion yet, you can simply checkout the plugin in your plugins directory:
+If your project is not under subversion yet, you can simply checkout the 
+plugin in your plugins directory:
 {{{
-$ svn co http://svn.symfony-project.com/plugins/nahoWikiplugin/trunk plugins/nahoWikiplugin
+$ svn co http://svn.symfony-project.com/plugins/nahoWikiPlugin/trunk plugins/nahoWikiPlugin
 }}}
 
-If your project is under version control, you can use the svn:externals property:
+If your project is under version control, you can use the svn:externals 
+property:
 {{{
 $ svn propedit svn:externals plugins
 }}}
 and add the following line:
 {{{
-nahoWikiplugin http://svn.symfony-project.com/plugins/nahoWikiplugin/trunk plugins/nahoWikiplugin
+nahoWikiPlugin http://svn.symfony-project.com/plugins/nahoWikiPlugin/trunk
 }}}
 
-After you installed `nahoWikiplugin` this way, you must copy (or symlink) `plugins/nahoWikiplugin/web` to `web/nahoWikiplugin`.
+After you installed `nahoWikiPlugin` this way, you must copy (or symlink) 
+`plugins/nahoWikiPlugin/web` to `web/nahoWikiPlugin`.
 
 == General instructions ==
 
-Rebuild the model as you are used to, to create the new tables needed by the plugin.
+Rebuild the model as you are used to, to create the new tables needed by the 
+plugin.
 {{{
 $ php symfony propel-build-all # Be careful, this command will erase all the existing tables of your model
 }}}
@@ -76,7 +95,7 @@ $ php symfony cc
 
 You can load the included fixtures to start using the forum with test data.
 {{{
-$ php symfony propel-load-data frontend plugins/nahoWikiplugin/data/fixtures
+$ php symfony propel-load-data frontend plugins/nahoWikiPlugin/data/fixtures
 }}}
 
 Enable the new `nahoWiki`  module in your application, via the `settings.yml` file.
@@ -94,14 +113,18 @@ http://myproject/frontend_dev.php/nahoWiki
 
 == Slots ==
 
-The templates of the `nahoWiki` module define some slots that you can use inside your layout:
+The templates of the `nahoWiki` module define some slots that you can use 
+inside your layout:
   - wiki_page_actions : For the current page actions
   - wiki_page_name : Name of the current page
   - wiki_breadcrumbs : For the wiki breadcrumbs
 
-If you want to insert the actions menu or the breadcrumbs in your layout at the place you exactly want, simply disable the auto-inclusion of it (see app.yml configuration) and include the corresponding slot in your layout.
+If you want to insert the actions menu or the breadcrumbs in your layout at 
+the place you exactly want, simply disable the auto-inclusion of it (see 
+app.yml configuration) and include the corresponding slot in your layout.
 
-Here is an example layout (in this example, options `include_page_actions` and `include_page_name` have been disabled in app.yml):
+Here is an example layout (in this example, options `include_page_actions` and 
+`include_page_name` have been disabled in app.yml):
 
 {{{
 ...
@@ -123,11 +146,16 @@ Here is an example layout (in this example, options `include_page_actions` and `
 
 === Schema customization ===
 
-If you install the `sfPropelAlternativeSchemaPlugin`, you can customize this plugin's schema by creating a `nahoWikiPlugin_schema.custom.yml` file under your project's `config/` directory. This allows you to customize the connection name, table names, etc… Refer to the [http://trac.symfony-project.com/wiki/sfPropelAlternativeSchemaPluginsfPropelAlternativeSchemaPlugin README file] for more information.
+If you install the `sfPropelAlternativeSchemaPlugin`, you can customize this 
+plugin's schema by creating a `nahoWikiPlugin_schema.custom.yml` file under 
+your project's `config/` directory. This allows you to customize the 
+connection name, table names, etc… Refer to the 
+[http://trac.symfony-project.com/wiki/sfPropelAlternativeSchemaPluginsfPropelAlternativeSchemaPlugin README file] for more information.
 
 === Extending model, actions, or templates ===
 
-If you want to extend a class of the model, just create an empty file `lib/model/nahoWikiClass.php`, which will contain:
+If you want to extend a class of the model, just create an empty file 
+`lib/model/nahoWikiClass.php`, which will contain:
 {{{
 <?php
 
@@ -138,7 +166,8 @@ class nahoWikiClass extends PluginnahoWikiClass {
 }
 }}}
 
-If you want to extend the actions, the process is similar: create a file named `modules/nahoWiki/actions/actions.class.php` in your app's directory:
+If you want to extend the actions, the process is similar: create a file named 
+`modules/nahoWiki/actions/actions.class.php` in your app's directory:
 {{{
 <?php
 
@@ -153,12 +182,21 @@ class nahoWikiActions extends BasenahoWikiActions
 }
 }}}
 
-To override a template file named `plugins/nahoWikiplugin/modules/nahoWiki/templates/theTemplate.php`, just copy it to `modules/nahoWiki/templates/theTemplate.php` in your app's folder, and then edit the copied file: it will be the one used by Symfony to render the pages.
-In most cases, you will want to override `_page_actions.php` or `_breadcrumbs.php`, or `_toc.php`. Templates have been smartly exploded, you should be able to customize the rendering with a few efforts.
+To override a template file named 
+`plugins/nahoWikiplugin/modules/nahoWiki/templates/theTemplate.php`, just copy 
+it to `modules/nahoWiki/templates/theTemplate.php` in your app's folder, and 
+then edit the copied file: it will be the one used by Symfony to render the 
+pages.
+In most cases, you will want to override `_page_actions.php` or 
+`_breadcrumbs.php`, or `_toc.php`. Templates have been smartly exploded, you 
+should be able to customize the rendering with a few efforts.
 
 === Using another Wiki renderer ===
 
-The default engine is [http://daringfireball.net/projects/markdown Markdown] (if `sfMarkdownPlugin` is not installed, no conversion at all is done). If you want to use another engine, just override the method `nahoWikiContentPeer::doConvert($content)`.
+The default engine is [http://daringfireball.net/projects/markdown Markdown] 
+(if `sfMarkdownPlugin` is not installed, no conversion at all is done). If you 
+want to use another engine, just override the method 
+`nahoWikiContentPeer::doConvert($content)`.
 
 Create a file named `lib/model/nahoWikiContentPeer.php`:
 {{{
@@ -177,7 +215,8 @@ class nahoWikiContentPeer extends PluginnahoWikiContentPeer {
 
 === app.yml ===
 
-Some of the features of the plugin can be altered by configuration. To do so, add some of the following lines to your application's `app.yml`:
+Some of the features of the plugin can be altered by configuration. To do so, 
+add some of the following lines to your application's `app.yml`:
 
 {{{
 all:
@@ -220,7 +259,9 @@ all:
 
 === Routing rules ===
 
-The plugin comes with the following default rules. You can prevent those routes to be added by disabling the option `routes_register`, and add your own routing rules.
+The plugin comes with the following default rules. You can prevent those 
+routes to be added by disabling the option `routes_register`, and add 
+your own routing rules.
 
 Here are the default rules:
 {{{
@@ -259,7 +300,10 @@ wiki_index:
 
 === Look and Feel ===
 
-The `nahoWiki` module comes with a default stylesheet. You can choose to use your own stylesheet instead of the default one. To do so, you must create an empty `nahoWiki` module inside your application with just one `config/view.yml` file in it, with the following content:
+The `nahoWiki` module comes with a default stylesheet. You can choose to use 
+your own stylesheet instead of the default one. To do so, you must create an 
+empty `nahoWiki` module inside your application with just one 
+`config/view.yml` file in it, with the following content:
 
 {{{
 all:
@@ -270,7 +314,8 @@ all:
 
 === Helpers ===
 
-nahoWiki provides a bunch of helpers to help you integrate the wiki in your application.
+nahoWiki provides a bunch of helpers to help you integrate the wiki in your 
+application.
 
 You can insert links to wiki pages, anywhere in your application :
 
@@ -294,11 +339,17 @@ The last two helpers are just shortcuts to use nahoWiki component.
 
 nahoWiki provides basic support for Interwiki.
 
-The main syntax is `[[Key>PageName Title]]`, and it outputs a link to the page "PageName" of the wiki named "Key", preceded by a nice icon telling the user this is an Interwiki link.
+The main syntax is `[[Key>PageName Title]]`, and it outputs a link to the page 
+"PageName" of the wiki named "Key", preceded by a nice icon telling the user 
+this is an Interwiki link.
 
-If the file named `web/nahoWikiPlugin/images/interwiki/key.gif` exists (or `.png` or `.jpg`) it will be used, else we use the generic `interwiki.png` [[Image(source:plugins/nahoWikiPlugin/trunk/web/images/interwiki.png, image/x-trac-wiki)]]
+If the file named `web/nahoWikiPlugin/images/interwiki/key.gif` exists (or 
+`.png` or `.jpg`) it will be used, else we use the generic `interwiki.png` 
+[[Image(source:plugins/nahoWikiPlugin/trunk/web/images/interwiki.png, 
+image/x-trac-wiki)]]
 
-To add a new Interwiki, just create a file named `interwiki.yml` in your app's folder, and add the key you want :
+To add a new Interwiki, just create a file named `interwiki.yml` in your app's 
+folder, and add the key you want :
 
 {{{
 all:
@@ -313,11 +364,14 @@ The syntax for internal links is `[[PageName Title]]`.
 
 Page names support namespaces.
 
-If an internal link points to a unexisting page, it's show to the user, using different models : `internal_link_model` for links to existing pages, `internal_link_broken_model` for links to unexisting pages.
+If an internal link points to a unexisting page, it's show to the user, using 
+different models : `internal_link_model` for links to existing pages, 
+`internal_link_broken_model` for links to unexisting pages.
 
 ==== Namespaces ====
 
-Namespaces work just the same way than [http://www.splitbrain.org/projects/dokuwiki DokuWiki]
+Namespaces work just the same way than 
+[http://www.splitbrain.org/projects/dokuwiki DokuWiki]
 
 == TODO ==
 
