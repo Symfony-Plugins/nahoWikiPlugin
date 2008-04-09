@@ -9,27 +9,53 @@
  */ 
 class PluginnahoWikiPage extends BasenahoWikiPage
 {
-  
+
+	/**
+	 * Returns name (lower case)
+	 *
+	 * @return string
+	 */
   public function getName()
   {
     return strtolower(parent::getName());
   }
   
+  /**
+   * Defines name (lower case)
+   *
+   * @param string $name
+   */
   public function setName($name)
   {
     parent::setName(strtolower($name));
   }
   
+  /**
+   * Returns namespace of the page
+   *
+   * @return string
+   */
   public function getNamespace()
   {
     return nahoWikiPagePeer::getNamespace($this->getName());
   }
   
-  public function getBasename($page_name = null)
+  /**
+   * Returns basename of the page
+   *
+   * @return string
+   */
+  public function getBasename()
   {
     return nahoWikiPagePeer::getBasename($this->getName());
   }
   
+  /**
+   * Transforms relative pagename to absolute
+   *
+   * @param string $page_name (default is current page_name)
+   * @return string
+   */
   public function resolveAbsoluteName($page_name = null)
   {
     if (!$page_name) {
@@ -65,6 +91,12 @@ class PluginnahoWikiPage extends BasenahoWikiPage
     return implode($ns_separator, $real_parts);
   }
   
+  /**
+   * Current revision
+   *
+   * @param int $revision
+   * @return nahoWikiRevision
+   */
   public function getRevision($revision = null)
   {
     $latest_revision = null;
@@ -80,6 +112,12 @@ class PluginnahoWikiPage extends BasenahoWikiPage
     return $latest_revision;
   }
   
+  /**
+   * Get all available revisions
+   *
+   * @param Criteria $criteria
+   * @return array
+   */
   public function getRevisions($criteria= null)
   {
     if ($criteria === null) {
@@ -105,13 +143,23 @@ class PluginnahoWikiPage extends BasenahoWikiPage
     }
   }
   
-  // @todo implement real rights management here
+  /**
+   * @todo implement real rights management here
+   *
+   * @param myUser $user
+   * @return boolean
+   */
   public function canView($user)
   {
     return true;
   }
   
-  // @todo implement real rights management here
+  /**
+   * @todo implement real rights management here
+   *
+   * @param myUser $user
+   * @return boolean
+   */
   public function canEdit($user)
   {
     $anonymousEditing = sfConfig::get('app_nahoWikiPlugin_allow_anonymous_edit', false);

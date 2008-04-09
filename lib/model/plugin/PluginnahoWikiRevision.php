@@ -44,6 +44,10 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
     return ($ip ? $ip : isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1'); // Return with the found IP, the remote address or the local loopback address
   }
   
+  /**
+   * Initializes username from context
+   *
+   */
   public function initUserName()
   {
     $user = sfContext::getInstance()->getUser();
@@ -54,15 +58,32 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
     }
   }
   
+  /**
+   * Is current revision the latest for its page ?
+   *
+   * @return boolean
+   */
   public function isLatest()
   {
     return $this->getRevision() == $this->getPage()->getLatestRevision();
   }
   
+  /**
+   * Returns the attached page
+   *
+   * @return nahoWikiPage
+   */
+  
   public function getPage()
   {
     return $this->getnahoWikiPage();
   }
+  
+  /**
+   * Gets content
+   *
+   * @return string
+   */
   
   public function getContent()
   {
@@ -86,6 +107,12 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
     return $uncompressed_content ? $uncompressed_content : gzinflate($compressed_content);
   }
   
+  /**
+   * Gets converted content
+   *
+   * @return string
+   */
+  
   public function getXHTMLContent()
   {
     $content = $this->getContent();
@@ -96,6 +123,12 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
     return $content;
   }
   
+  /**
+   * Defines content
+   *
+   * @param string $content
+   */
+  
   public function setContent($content)
   {
     $content_storage = $this->getnahoWikiContent();
@@ -105,8 +138,14 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
     }
     $content_storage->setContent($content);
     
-    return $content_storage->save();
+    $content_storage->save();
   }
+  
+  /**
+   * Compress current content to save space
+   *
+   * @return boolean
+   */
   
   public function archiveContent()
   {
@@ -127,6 +166,12 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
     return true;
   }
   
+  /**
+   * Uncompress content
+   *
+   * @return boolean
+   */
+  
   public function unarchiveContent()
   {
     $content_storage = $this->getnahoWikiContent();
@@ -145,5 +190,6 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
     
     return true;
   }
+  
   
 }

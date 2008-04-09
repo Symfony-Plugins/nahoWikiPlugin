@@ -10,6 +10,12 @@
 class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
 {
   
+	/**
+	 * Converts Wiki syntax
+	 *
+	 * @param string $content
+	 * @return string
+	 */
   public static function doConvert($content)
   {
     if (class_exists('sfMarkdown')) {
@@ -19,6 +25,15 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     }
   }
   
+  /**
+   * Makes replacements based on an array of replaces :
+   * key = PCRE mask
+   * value = replacement (string or array for callback)
+   *
+   * @param array $replaces
+   * @param string $content
+   * @return string
+   */
   public static function makeReplacements($replaces, $content)
   {
     foreach ($replaces as $replace) {
@@ -32,6 +47,13 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     return $content;
   }
   
+  /**
+   * Applies pre-conversion modifications
+   *
+   * @param nahoWikiPage $page
+   * @param string $content
+   * @return string
+   */
   public static function preConvert($page, $content)
   {
     // Convert nahoWiki-specific internal links to a syntax compatible with the chosen wiki engine
@@ -44,6 +66,13 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     return self::makeReplacements($replaces, $content);
   }
   
+  /**
+   * Applies post-conversion modifications
+   *
+   * @param nahoWikiPage $page
+   * @param string $html
+   * @return string
+   */
   public static function postConvert($page, $html)
   {
     $replaces = sfConfig::get('app_nahoWikiPlugin_replace_after', array());
@@ -51,7 +80,7 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     // Add the rule to insert ID to titles (support for anchors)
     $replaces[] = array(
       'from' => '/<(h[1-6])( .*+)?>(.*?)<\/\1>/i',
-      'to'   => array('self', 'callbackNameTitle')
+      'to'   => array('nahoWikiContentPeer', 'callbackNameTitle')
     );
     
     // Add the rule to apply security filters
@@ -63,9 +92,17 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
       );
     }
     
-    return self::makeReplacements($replaces, $html);
+    return nahoWikiContentPeer::makeReplacements($replaces, $html);
   }
   
+  /**
+   * Extracts the link replacements to be done in content
+   *
+   * @param string $content
+   * @param array $masks
+   * @param array $pcre_masks
+   * @return unknown
+   */
   protected static function extractLinkReplacements($content, $masks, $pcre_masks)
   {
     $replaces = array(); // hash of string-replacements to make
@@ -103,6 +140,18 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     return $replaces;
   }
   
+  /**
+   * Makes the link replacements, based on the replaces extracted
+   * 
+   * @see self::convertInternalLinks
+   *
+   * @param string    $content
+   * @param array     $replaces
+   * @param string    $link_model
+   * @param array     $existing_page hash with key = an existing page
+   * @param string    $broken_link_model
+   * @return string
+   */
   protected static function makeLinkReplacements($content, $replaces, $link_model, $existing_page = null, $broken_link_model = null) {
     // make full-text replacements
     foreach ($replaces as $source => $replace) {
@@ -125,6 +174,13 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     return $content;
   }
   
+  /**
+   * Enables internal links, based on app_nahoWikiPlugin_internal_* options
+   *
+   * @param nahoWikiPage $page
+   * @param string $content
+   * @return string
+   */
   public static function convertInternalLinks($page, $content)
   {
     $masks = sfConfig::get('app_nahoWikiPlugin_internal_links', array('[[%name% %title%]]', '[[%name%]]'));
@@ -133,7 +189,7 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
       'title' => '.*?',
     );
     
-    $replaces = self::extractLinkReplacements($content, $masks, $pcre_masks);
+    $replaces = nahoWikiContentPeer::extractLinkReplacements($content, $masks, $pcre_masks);
     
     // Extract names and complete the replacements array
     $names = array();
@@ -146,7 +202,7 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
         $replace['title'] = nahoWikiPagePeer::getBasename($replace['name']);
       }
       // Link
-      $url = 'nahoWiki/view?page=' . $replace['name'];
+      $url = nahoWikiPagePeer::url($replace['name'], $page);
       if (@$replace['anchor']) {
         $url .= '#' . $replace['anchor'];
       }
@@ -165,9 +221,15 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     $link_model = sfConfig::get('app_nahoWikiPlugin_internal_link_model', '[%title%](%link%)');
     $broken_link_model = sfConfig::get('app_nahoWikiPlugin_internal_link_broken_model', '[%title%(?)](%link%)');
     
-    return self::makeLinkReplacements($content, $replaces, $link_model, $existing_page, $broken_link_model);
+    return nahoWikiContentPeer::makeLinkReplacements($content, $replaces, $link_model, $existing_page, $broken_link_model);
   }
   
+  /**
+   * Converts interwiki links, based on app_nahoWikiPlugin_interwiki_* options
+   *
+   * @param string $content
+   * @return string
+   */
   public static function convertInterwikiLinks($content)
   {
     $masks = sfConfig::get('app_nahoWikiPlugin_interwiki_links', array('[[%name% %title%]]', '[[%name%]]'));
@@ -176,7 +238,7 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
       'title' => '.*?',
     );
     
-    $replaces = self::extractLinkReplacements($content, $masks, $pcre_masks);
+    $replaces = nahoWikiContentPeer::extractLinkReplacements($content, $masks, $pcre_masks);
     
     // Complete the replacements array
     $interwiki = sfConfig::get('app_nahoWikiPlugin_interwiki', array());
@@ -208,10 +270,16 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     
     $link_model = sfConfig::get('app_nahoWikiPlugin_interwiki_link_model', '[![%alttext%](%image%) %title%](%link%)');
     
-    return self::makeLinkReplacements($content, $replaces, $link_model);
+    return nahoWikiContentPeer::makeLinkReplacements($content, $replaces, $link_model);
   }
 
-  public static function titleToID($title)
+  /**
+   * Returns an ID based on the title (cleans the string)
+   *
+   * @param string $title
+   * @return string
+   */
+  protected static function titleToID($title)
   {
     if (function_exists('mb_detect_encoding') && function_exists('mb_convert_encoding')) {
       $id = mb_convert_encoding($title, 'HTML-ENTITIES', mb_detect_encoding($title));
@@ -230,15 +298,28 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
     return $id;
   }
   
-  public static function callbackNameTitle($matches)
+  /**
+   * Used as a callback to insert IDs in titles 
+   *
+   * @param array $matches
+   * @return string
+   */
+  protected static function callbackNameTitle($matches)
   {
     $title = $matches[3];
-    $id = self::titleToID($title);
+    $id = nahoWikiContentPeer::titleToID($title);
     
     return '<'. $matches[1] . $matches[2] . ' id="' . htmlentities($id) . '">' . $title . '</' . $matches[1] . '>';
   }
   
-  public static function addToTOC(&$toc, $title, $deepness = 1)
+  /**
+   * Add an item to the table of contents
+   *
+   * @param array     $toc
+   * @param string    $title
+   * @param int       $deepness
+   */
+  protected static function addToTOC(&$toc, $title, $deepness = 1)
   {
     if ($deepness > 1) {
       if (!($n = count($toc))) {
@@ -247,18 +328,28 @@ class PluginnahoWikiContentPeer extends BasenahoWikiContentPeer
       } else {
         $i = $n - 1;
       }
-      self::addToTOC($toc[$i]['subtitles'], $title, $deepness - 1);
+      nahoWikiContentPeer::addToTOC($toc[$i]['subtitles'], $title, $deepness - 1);
     } else {
-      $toc[] = array('title' => $title, 'id' => self::titleToID($title), 'subtitles' => array());
+      $toc[] = array('title' => $title, 'id' => nahoWikiContentPeer::titleToID($title), 'subtitles' => array());
     }
   }
-  
+
+  /**
+   * Returns table of contents from HTML, based on <H*> tags
+   * Format is :
+   * title     => title of the content
+   * id        => anchor to the title
+   * subtitles => sub-TOC
+   *
+   * @param string    $html
+   * @return array
+   */
   public static function getTOC($html)
   {
     $toc = array();
     preg_match_all('/<h([1-6]).*?>(.*?)<\/h\1>/i', $html, $matches, PREG_SET_ORDER);
     foreach ($matches as $match) {
-      self::addToTOC($toc, $match[2], intval($match[1]));
+      nahoWikiContentPeer::addToTOC($toc, $match[2], intval($match[1]));
     }
     
     return $toc;

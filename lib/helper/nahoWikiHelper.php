@@ -10,7 +10,9 @@
  */
 function link_to_diff($text, $page_name, $rev1, $rev2, $mode = 'inline')
 {
-  return link_to($text, 'nahoWiki/diff?page=' . $page_name . '&oldRevision=' . $rev1 . '&revision=' . $rev2 . '&mode=' . $mode);
+	$url = nahoWikiPagePeer::url($page_name);
+	
+  return link_to($text, $url . '&oldRevision=' . $rev1 . '&revision=' . $rev2 . '&mode=' . $mode);
 }
 
 /**
@@ -24,7 +26,9 @@ function link_to_diff($text, $page_name, $rev1, $rev2, $mode = 'inline')
  */
 function link_to_raw_diff($text, $page_name, $rev1, $rev2, $mode = 'unified')
 {
-  return link_to($text, 'nahoWiki/diff?page=' . $page_name . '&oldRevision=' . $rev1 . '&revision=' . $rev2 . '&mode=' . $mode . '&raw=1');
+	$url = nahoWikiPagePeer::url($page_name);
+	
+  return link_to($text, $url . '&oldRevision=' . $rev1 . '&revision=' . $rev2 . '&mode=' . $mode . '&raw=1');
 }
 
 /**
@@ -38,7 +42,7 @@ function link_to_raw_diff($text, $page_name, $rev1, $rev2, $mode = 'unified')
  */
 function url_for_wiki($page_name, $revision = null, $absolute = false)
 {
-  $url = 'nahoWiki/view?page=' . $page_name;
+  $url = nahoWikiPagePeer::url($page_name);
   if (!is_null($revision)) {
     $url .= '&revision=' . $revision;
   }
@@ -57,7 +61,7 @@ function url_for_wiki($page_name, $revision = null, $absolute = false)
  */
 function link_to_wiki($text, $page_name, $options = array())
 {
-  $url = 'nahoWiki/view?page=' . $page_name;
+  $url = nahoWikiPagePeer::url($page_name);
   if (isset($options['revision'])) {
     $url .= '&revision=' . $options['revision'];
   }
@@ -144,6 +148,7 @@ function include_wiki($page_name, $revision = null, $options = array())
 {
   $options['pagename'] = $page_name;
   $options['revision'] = $revision;
+  
   include_component('nahoWiki', 'content', $options);
 }
 
@@ -162,5 +167,6 @@ function get_wiki($page_name, $revision = null, $options = array())
 {
   $options['pagename'] = $page_name;
   $options['revision'] = $revision;
+  
   return get_component('nahoWiki', 'content', $options);
 }
