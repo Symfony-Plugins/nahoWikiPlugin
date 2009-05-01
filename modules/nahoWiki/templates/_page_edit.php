@@ -7,7 +7,7 @@
 <?php else: ?>
 
   <?php if (!$revision->isLatest()): ?>
-    <p class="wiki-warning"><?php echo __('You are currently editing an old revision of this page. If you save these changes, all changed made since this revision will be lost !!') ?> <?php echo link_to(__('Don\'t you want to edit the latest version of this page ?'), 'nahoWiki/edit?page=' . $page->getName()) ?></p>
+    <p class="wiki-warning"><?php echo __('You are currently editing an old revision of this page. If you save these changes, all changes made since this revision will be lost !!') ?> <?php echo link_to(__('Don\'t you want to edit the latest version of this page ?'), 'nahoWiki/edit?page=' . $page->getName()) ?></p>
   <?php endif ?>
 
   <?php echo form_tag('nahoWiki/edit?' . $uriParams, 'name=edit_page id=edit_page class=wiki-form') ?>

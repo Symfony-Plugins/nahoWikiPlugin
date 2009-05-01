@@ -6,7 +6,7 @@
   )) ?></p>
 
 <?php if (!trim($diff)): ?>
-  <p class="wiki-diff-intro wiki-warning"><?php echo __('There is no difference between the selected revisions') ?></p>
+  <p class="wiki-diff-intro wiki-warning"><?php echo __('There is no difference between the selected revisions.') ?></p>
 <?php else: ?>
   <pre class="wiki-diff"><?php echo $diff ?></pre>
   <ul class="wiki-diff-links">

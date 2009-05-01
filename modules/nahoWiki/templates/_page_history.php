@@ -38,7 +38,7 @@
 </table>
 
 <?php if (@$compare): ?>
-  <p class="wiki-form-submit"><?php echo submit_tag(__('View changed between selected versions')) ?></p>
+  <p class="wiki-form-submit"><?php echo submit_tag(__('View changes between selected versions')) ?></p>
   </form>
 <?php endif ?>
 

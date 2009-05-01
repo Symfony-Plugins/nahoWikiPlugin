@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff>
+  <file source-language="en" original="messages.en.xml" datatype="plaintext">
+    <header>
+    </header>
+    <body>
+      
+      <group>
+        <note>actions</note>
+        <trans-unit id="action_view">
+          <source>View</source>
+          <target>Lire</target>
+        </trans-unit>
+        <trans-unit id="action_edit">
+          <source>Edit</source>
+          <target>Editer</target>
+        </trans-unit>
+        <trans-unit id="action_source">
+          <source>View source</source>
+          <target>Voir source</target>
+        </trans-unit>
+        <trans-unit id="action_history">
+          <source>History</source>
+          <target>Historique</target>
+        </trans-unit>
+        <trans-unit id="action_index">
+          <source>Index</source>
+          <target>Index</target>
+        </trans-unit>
+      </group>
+      
+      <group>
+        <note>content</note>
+        <trans-unit id="content_empty">
+          <source>There is no article here yet.</source>
+          <target>Il n'y a encore aucun contenu pour cette page.</target>
+        </trans-unit>
+        <trans-unit id="content_edit">
+          <source>Edit this page to contribute.</source>
+          <target>Editez cette page pour ajouter du contenu.</target>
+        </trans-unit>
+        <trans-unit id="content_toc">
+          <source>Table of contents</source>
+          <target>Sommaire</target>
+        </trans-unit>
+      </group>
+        
+      <group>
+        <note>diff</note>
+        <trans-unit id="diff_view">
+          <source>View below changes from %revision1% to %revision2% :</source>
+          <target>Voir ci-dessous les modifications entre les versions %revision1% et %revision2% :</target>
+        </trans-unit>
+        <trans-unit id="diff_nodiff">
+          <source>There is no difference between the selected revisions.</source>
+          <target>Il n'y a aucune différence entre les versions sélectionnés</target>
+        </trans-unit>
+        <trans-unit id="diff_reverse">
+          <source>View reverse diff</source>
+          <target>Voir le diff inverse</target>
+        </trans-unit>
+        <trans-unit id="diff_raw">
+          <source>View raw unified diff</source>
+          <target>Voir le diff unifié brut</target>
+        </trans-unit>
+      </group>
+        
+      <group>
+        <note>view/edit page</note>
+        <trans-unit id="edit_forbidden">
+          <source>You are not allowed to access this page.</source>
+          <target>Vous n'avez pas le droit d'accéder à cette page.</target>
+        </trans-unit>
+        <trans-unit id="edit_old">
+          <source>You are currently editing an old revision of this page. If you save these changes, all changes made since this revision will be lost !!</source>
+          <target>Vous êtes en train d'éditer une ancienne version de cette page. Si vous sauvegardez ces modifications, toutes les modifications effectuées depuis seront perdues !!</target>
+        </trans-unit>
+        <trans-unit id="edit_latest">
+          <source>Don't you want to edit the latest version of this page ?</source>
+          <target>Ne préférez-vous pas éditer la dernière version de cette page ?</target>
+        </trans-unit>
+        <trans-unit id="edit_noauth">
+          <source>You are not authenticated. Your IP address will be stored : %ip%.</source>
+          <target>Vous n'êtes pas identifié. Votre adresse IP sera conservée : %ip%.</target>
+        </trans-unit>
+        <trans-unit id="edit_auth">
+          <source>You are authenticated. Your username will be stored : %username%.</source>
+          <target>Vous êtes identifié. Votre nom d'utilisateur sera conservé : %username%.</target>
+        </trans-unit>
+        <trans-unit id="edit_preview">
+          <source>This is a preview of how your text will look like. Remember: &lt;strong&gt;It is not saved yet&lt;/strong&gt; !</source>
+          <target>Ceci est une prévisualisation de ce à quoi votre texte ressemblera. Souvenez-vous: &lt;strong&gt;Rien n'est sauvegardé à ce stade&lt;/strong&gt; !</target>
+        </trans-unit>
+        <trans-unit id="view_old">
+          <source>You are currently viewing an old revision of this page.</source>
+          <target>Vous êtes en train de visualiser une ancienne version de cette page.</target>
+        </trans-unit>
+        <trans-unit id="view_latest">
+          <source>Don't you want to see the latest version of this page ?</source>
+          <target>Ne préférez-vous pas visualiser la dernière version de cette page ?</target>
+        </trans-unit>
+        <trans-unit id="edit_comment_create">
+          <source>Creation</source>
+          <target>Création</target>
+        </trans-unit>
+        <trans-unit id="edit_btn_save">
+          <source>Save changes</source>
+          <target>Sauvegarder</target>
+        </trans-unit>
+        <trans-unit id="edit_btn_preview">
+          <source>Preview</source>
+          <target>Prévisualiser</target>
+        </trans-unit>
+      </group>
+      
+      <group>
+        <note>history</note>
+        <trans-unit id="history_title">
+          <source>History of changes</source>
+          <target>Historique des modifications</target>
+        </trans-unit>
+        <trans-unit id="history_btn_compare">
+          <source>Compare</source>
+          <target>Comparer</target>
+        </trans-unit>
+        <trans-unit id="history_revision">
+          <source>Revision</source>
+          <target>Version</target>
+        </trans-unit>
+        <trans-unit id="history_date">
+          <source>Date</source>
+          <target>Date</target>
+        </trans-unit>
+        <trans-unit id="history_author">
+          <source>Author</source>
+          <target>Auteur</target>
+        </trans-unit>
+        <trans-unit id="history_comment">
+          <source>Comment</source>
+          <target>Commentaire</target>
+        </trans-unit>
+        <trans-unit id="history_btn_view">
+          <source>View changes between selected versions</source>
+          <target>Voir les modifications entre les versions sélectionnés</target>
+        </trans-unit>
+      </group>
+        
+      <group>
+        <note>index</note>
+        <trans-unit id="index_title">
+          <source>Index by title</source>
+          <target>Index par titre</target>
+        </trans-unit>
+        <trans-unit id="index_intro">
+          <source>All the pages of the wiki are listed here, sorted by category and name.</source>
+          <target>Toutes les pages du wiki sont listés ci-dessous, triées par catégorie et par nom.</target>
+        </trans-unit>
+      </group>
+        
+      <group>
+        <note>user</note>
+        <trans-unit id="user_intro">
+          <source>This is the personal page of an author. You will find here information about the user.</source>
+          <target>Ceci est la page personnelle d'un auteur. Vous trouverez ici des informations à son sujet.</target>
+        </trans-unit>
+      </group>
+        
+    </body>
+  </file>
+</xliff>
