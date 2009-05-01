@@ -137,8 +137,6 @@ class PluginnahoWikiRevision extends BasenahoWikiRevision
       $this->setnahoWikiContent($content_storage);
     }
     $content_storage->setContent($content);
-    
-    $content_storage->save();
   }
   
   /**
