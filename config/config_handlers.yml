@@ -1,2 +1,3 @@
 config/interwiki.yml:
   class:  nahoWikiConfigHandler
+  file:   %SF_PLUGINS_DIR%/nahoWikiPlugin/lib/config/nahoWikiConfigHandler.php
